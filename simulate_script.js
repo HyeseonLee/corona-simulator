@@ -1,18 +1,20 @@
 (function() {
-    const recoverTime = 20; // 감염 후 완치까지 걸리는 시간(초)
-    const totalCount = 50;//200; // 전체 사람 수
+    const recoverTime = 8; // 감염 후 완치까지 걸리는 시간(초)
+    const totalCount = 200; // 전체 사람 수
     const stop_ratio = 0.3; // 멈춰있는 비율
-    const stopCount = 20;//totalCount * stop_ratio; // 멈춘 사람 수
-    const moveCount = 30;//totalCount - stopCount; // 움직이는 사람 수
+    const stopCount = totalCount * stop_ratio; // 멈춘 사람 수
+    const moveCount = totalCount - stopCount; // 움직이는 사람 수
     const speed = 1; // 움직이는 속도
     const radius = 5; //반지름
 
+    const healthy_color = '#b3bccb';
+    const sick_color = '#dd002f';
+    const recovered_color = 'blue';
+    
     let healthyCount = 0; //건강한 사람 수
     let sickCount = 0; //감염자 수
     let recoveredCount = 0; //완치자 수 (recoverTime에 따라 달라짐)
 
-    const checkText = document.querySelector('.checktext');
-    
     const healthyBar = document.querySelector('.healthy .bar');
     const sickBar = document.querySelector('.sick .bar');
     const recoveredBar = document.querySelector('.recovered .bar');
@@ -55,14 +57,14 @@
 
         infected() {
             const self = this;
-            this.color = 'red';
+            this.color = '#dd002f';
             setTimeout(function() {
                 self.recover();
             }, recoverTime * 1000);
         }
 
         recover() {
-            this.color = 'blue';
+            this.color = '#1f71ff';
         }
 
         draw() {
@@ -106,10 +108,10 @@
             for (let j = i + 1; j < all_balls.length; j++) {
                 testBall=all_balls[j];
                 if (hitTest(ball, testBall)) {
-                    if (ball.color === 'red' && testBall.color === 'silver') {
+                    if (ball.color === '#dd002f' && testBall.color === '#b3bccb') {
                         testBall.infected();
                     }
-                    if (testBall.color === 'red' && ball.color === 'silver') {
+                    if (testBall.color === '#dd002f' && ball.color === '#b3bccb') {
                         ball.infected();
                     }
                     const angle1 = ball.angle;
@@ -131,13 +133,13 @@
         for (let i = 0; i < totalCount; i++) {
             ball = all_balls[i];
             switch (ball.color) {
-                case 'silver':
+                case '#b3bccb':
                     healthyCount++;
                     break;
-                case 'red':
+                case '#dd002f':
                     sickCount++;
                     break;
-                case 'blue':
+                case '#1f71ff':
                     recoveredCount++;
                     break;
             }
@@ -167,11 +169,11 @@
         let healthyHeight = healthyCount / totalCount * canvas2.height;
         let sickHeight = sickCount / totalCount * canvas2.height;
 
-        context2.fillStyle = 'blue'; //완치
+        context2.fillStyle = '#1f71ff'; //완치
         context2.fillRect(graphX, 0, 1, recoveredHeight);
-        context2.fillStyle = 'silver'; //건강
+        context2.fillStyle = '#b3bccb'; //건강
         context2.fillRect(graphX, recoveredHeight, 1, healthyHeight);
-        context2.fillStyle = 'red'; //감염
+        context2.fillStyle = '#dd002f'; //감염
         context2.fillRect(graphX, recoveredHeight + healthyHeight, 1, sickHeight);
         graphX++;
     }
@@ -216,7 +218,7 @@
                     x: radius * 2 + Math.floor(Math.random() * (canvas.width - radius * 3)),
                     y: radius * 2 + Math.floor(Math.random() * (canvas.height - radius * 3)),
                     angle: Math.round(Math.random() * 360),
-                    color: 'silver' //초기 상태는 모두 건강!!!!
+                    color: '#b3bccb' //초기 상태는 모두 건강!!!!
                 });
                 stop_positionOK = stop_canLocate(stop_ball);
             }
@@ -231,7 +233,7 @@
                     x: radius * 2 + Math.floor(Math.random() * (canvas.width - radius * 3)),
                     y: radius * 2 + Math.floor(Math.random() * (canvas.height - radius * 3)),
                     angle: Math.round(Math.random() * 360),
-                    color: 'silver'
+                    color: '#b3bccb'
                 });
                 move_positionOK = move_canLocate(move_ball);
             }
