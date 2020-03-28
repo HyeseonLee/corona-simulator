@@ -41,14 +41,6 @@ canvas {
 .covid-status .label {
     width: 100px;
 }
-/* .covid-status .bar-container {
-    width: calc(100% - 80px);
-}
-.covid-status .bar {
-    width: 0;
-    height: 3px;
-    transition: width 0.3s;
-} */
 
 .number .recovered .count{
     color : #1f71ff;

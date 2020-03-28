@@ -13,7 +13,7 @@
     
     let healthyCount = 0; //건강한 사람 수
     let sickCount = 0; //감염자 수
-    let recoveredCount = 0; //완치자 수 (recoverTime에 따라 달라짐)
+    let recoveredCount = 0; //완치자 수
 
     const healthyBar = document.querySelector('.healthy .bar');
     const sickBar = document.querySelector('.sick .bar');
@@ -27,19 +27,17 @@
 
     const canvasContainer = document.querySelector('.canvas-container');
 
-    //점 찍을 캔버스
     const canvas = document.querySelector('.canvas');
     const context = canvas.getContext('2d');
     // 그래프 그릴 캔버스
     const canvas2 = document.querySelector('.graph-canvas');
     const context2 = canvas2.getContext('2d');
 
-    const circleAngle = Math.PI * 2; //ball그릴 angle
+    const circleAngle = Math.PI * 2; 
 
-
-    let move_balls = []; //움직이는 공들 배열
-    let stop_balls = []; //멈춰있는 공들 배열
-    let all_balls = []; //원래 balls[]를 대신하는 친구.
+    let move_balls = []; //움직이는 공들 
+    let stop_balls = []; //멈춰있는 공들
+    let all_balls = []; //전체 공들
 
     let rafId;
     let stop;
@@ -84,7 +82,6 @@
         return r * 180 / Math.PI;
     }
 
-    //hitTest
     function hitTest(ball1, ball2) {
         let value;
         const dx = ball1.nextX - ball2.nextX;
@@ -93,12 +90,9 @@
         if (dist <= radius * 2 * (radius * 2)) {
             value = true;
         }
-        // 충돌YES조건에 맞으면 value를 true로
-
         return value;
     }
 
-    //function checkCollision
     function checkCollision() {
         let ball;
         let testBall;
@@ -123,7 +117,6 @@
         }
     }
 
-    // checkCount
     function checkCount() {
         let ball;
         let healthyCount = 0;
@@ -149,20 +142,13 @@
         sickLabelCount.innerHTML = sickCount;
         recoveredLabelCount.innerHTML = recoveredCount;
 
-        //healthyBar.style.width = '${healthyCount / totalCount*100}%';
-        //sickBar.style.width = '${sickCount/totalCount*100}%';
-        //recoveredBar.style.width = '${recoveredCount/totalCount*100}%';
-
         drawGraph(recoveredCount, healthyCount, sickCount);
 
         if (sickCount === 0) {
-            // 디버깅중!!!!!!!!!!!!!!
-            // checkText.innerHTML ="stttttttop";
             stop = true;
         }
     }
 
-    //drawGraph 그래프 그리기
     let graphX = 0;
     function drawGraph(recoveredCount, healthyCount, sickCount) {
         let recoveredHeight = recoveredCount / totalCount * canvas2.height;
@@ -218,7 +204,7 @@
                     x: radius * 2 + Math.floor(Math.random() * (canvas.width - radius * 3)),
                     y: radius * 2 + Math.floor(Math.random() * (canvas.height - radius * 3)),
                     angle: Math.round(Math.random() * 360),
-                    color: '#b3bccb' //초기 상태는 모두 건강!!!!
+                    color: '#b3bccb' 
                 });
                 stop_positionOK = stop_canLocate(stop_ball);
             }
@@ -240,11 +226,7 @@
             move_balls.push(move_ball);
             all_balls.push(move_ball);
         }
-
-        // 디버깅중!!!!!!!!!!!!!!
-        // checkText.innerHTML = all_balls;
-        
-         all_balls[Math.floor(Math.random() * totalCount)].infected();
+        all_balls[Math.floor(Math.random() * totalCount)].infected();
 
         loop();
     }
@@ -264,8 +246,8 @@
 
             move_ball.x += Math.cos(toRadian(move_ball.angle)) * speed;
             move_ball.y += Math.sin(toRadian(move_ball.angle)) * speed;
-            move_balls[i].draw(); //작동한다 11:10
-
+            move_balls[i].draw(); 
+            
             move_ball.nextX = move_ball.x + Math.cos(toRadian(move_ball.angle)) * speed;
             move_ball.nextY = move_ball.y + Math.sin(toRadian(move_ball.angle)) * speed;
         }
