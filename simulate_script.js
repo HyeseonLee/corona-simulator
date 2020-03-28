@@ -1,9 +1,9 @@
 (function() {
-    const recoverTime = 20; // 감염 후 완치까지 걸리는 시간(초)
-    const totalCount = 200; // 전체 사람 수
+    const recoverTime = 8; // 감염 후 완치까지 걸리는 시간(초)
+    const totalCount = 20//200; // 전체 사람 수
     const stop_ratio = 0.3; // 멈춰있는 비율
-    const stopCount = totalCount * stop_ratio; // 멈춘 사람 수
-    const moveCount = totalCount - stopCount; // 움직이는 사람 수
+    const stopCount = 15;//totalCount * stop_ratio; // 멈춘 사람 수
+    const moveCount = 5;//totalCount - stopCount; // 움직이는 사람 수
     const speed = 1; // 움직이는 속도
     const radius = 5; //반지름
 
@@ -103,7 +103,8 @@
 
         for (let i = 0; i < all_balls.length; i++) {
             ball = all_balls[i];
-            for (let j = i + 1; j < all_balls[j]; h++) {
+            for (let j = i + 1; j < all_balls[j]; j++) {
+                testBall=all_balls[j];
                 if (hitTest(ball, testBall)) {
                     if (ball.color === 'red' && testBall.color === 'silver') {
                         testBall.infected();
