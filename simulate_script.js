@@ -267,6 +267,10 @@
             move_ball.nextX = move_ball.x + Math.cos(toRadian(move_ball.angle)) * speed;
             move_ball.nextY = move_ball.y + Math.sin(toRadian(move_ball.angle)) * speed;
         }
+        for(let j=0; j<stopCount; j++) {
+            stop_ball = stop_balls[j];
+            stop_balls[j].draw();
+        }
 
         checkCollision();
         checkCount();
