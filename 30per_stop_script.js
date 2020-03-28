@@ -1,7 +1,7 @@
 (function() {
     const recoverTime = 8; // 감염 후 완치까지 걸리는 시간(초)
     const totalCount = 200; // 전체 사람 수
-    const stop_ratio = 0.8; // 멈춰있는 비율
+    const stop_ratio = 0.3; // 멈춰있는 비율
     const stopCount = totalCount * stop_ratio; // 멈춘 사람 수
     const moveCount = totalCount - stopCount; // 움직이는 사람 수
     const speed = 1; // 움직이는 속도
